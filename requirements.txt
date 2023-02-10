@@ -1,6 +1,6 @@
-Flask=="*"
-langchain=="*"
-openai=="*"
+Flask==2.2.2
+langchain==0.0.81
+openai
 boto3==1.26.68
-faiss-cpu = "*"
-tiktoken = "*"
+faiss-cpu
+tiktoken
