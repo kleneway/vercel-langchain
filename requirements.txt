@@ -3,4 +3,3 @@ langchain==0.0.81
 openai
 boto3==1.26.68
 faiss-cpu
-tiktoken
