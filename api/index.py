@@ -3,6 +3,7 @@ from flask import Flask, request
 from langchain.llms import OpenAI
 from langchain.chains import VectorDBQA
 from langchain.utilities import SerpAPIWrapper
+from langchain.utilities import RequestsWrapper
 from pickle import load as pickle_load
 # from boto3 import client
 from faiss import read_index
@@ -52,7 +53,7 @@ def ask(username):
     return result
 
 @app.route('/search', methods=['GET'])
-def ask():
+def search():
     try:
         query = request.args["q"]
     except KeyError:
@@ -60,4 +61,15 @@ def ask():
 
     search = SerpAPIWrapper()
     result = search.run(query)
+    return result
+
+@app.route('/request', methods=['GET'])
+def request():
+    try:
+        url = request.args["url"]
+    except KeyError:
+        return "No url provided"
+
+    req = RequestsWrapper()
+    result = req.run(url)
     return result
