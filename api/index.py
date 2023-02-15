@@ -2,6 +2,7 @@ from os import environ
 from flask import Flask, request
 from langchain.llms import OpenAI
 from langchain.chains import VectorDBQA
+from langchain.tools import SerpAPIWrapper
 from pickle import load as pickle_load
 # from boto3 import client
 from faiss import read_index
@@ -48,4 +49,16 @@ def ask(username):
     store.index = index
     chain = VectorDBQA.from_llm(llm=OpenAI(temperature=0), vectorstore=store)
     result = chain.run(question)
+    return result
+
+@app.route('/search', methods=['GET'])
+def ask():
+    try:
+        query = request.args["q"]
+    except KeyError:
+        return "No query provided"
+
+    from langchain.utilities import SerpAPIWrapper
+    search = SerpAPIWrapper()
+    result = search.run(query)
     return result
