@@ -2,7 +2,7 @@ from os import environ
 from flask import Flask, request
 from langchain.llms import OpenAI
 from langchain.chains import VectorDBQA
-from langchain.tools import SerpAPIWrapper
+from langchain.utilities import SerpAPIWrapper
 from pickle import load as pickle_load
 # from boto3 import client
 from faiss import read_index
@@ -58,7 +58,6 @@ def ask():
     except KeyError:
         return "No query provided"
 
-    from langchain.utilities import SerpAPIWrapper
     search = SerpAPIWrapper()
     result = search.run(query)
     return result
