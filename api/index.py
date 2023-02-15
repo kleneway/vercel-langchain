@@ -63,8 +63,8 @@ def search():
     result = search.run(query)
     return result
 
-@app.route('/request', methods=['GET'])
-def request():
+@app.route('/webpage', methods=['GET'])
+def webpage():
     try:
         url = request.args["url"]
     except KeyError:
